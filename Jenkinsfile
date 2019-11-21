@@ -1,5 +1,16 @@
 pipeline {
-    agent { docker { image 'node:6.3' } }
+    agent { 
+		docker { 
+			image 'node:6.3'
+			args '-p 3000:3000'
+			} 
+		}
+
+    environment {
+        DISABLE_AUTH = 'true'
+        DB_ENGINE    = 'sqlite'
+    }
+
     stages {
         stage('build') {
             steps {
