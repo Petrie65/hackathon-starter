@@ -1,11 +1,5 @@
 pipeline {
-    agent { 
-		label 'docker'
-		docker { 
-			image 'node:8-alpine'
-			args '-p 3000:3000'
-			} 
-		}
+	agent { label 'docker-agent' }
 
     environment {
         DISABLE_AUTH = 'true'
@@ -13,7 +7,14 @@ pipeline {
     }
 
     stages {
-        stage('build') {
+        stage('build')
+			agent { 
+				docker { 
+					label 'docker-builder'
+					image 'node:8-alpine'
+					args '-p 3000:3000'
+				} 
+			}
             steps {
                 sh 'npm --version'
                 sh '''
