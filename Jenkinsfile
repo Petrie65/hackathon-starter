@@ -1,5 +1,5 @@
 pipeline {
-	agent { label 'docker-agent' }
+	// agent { label 'docker-agent' }
 
     environment {
         DISABLE_AUTH = 'true'
@@ -10,7 +10,7 @@ pipeline {
         stage('build') {
 			agent { 
 				docker { 
-					label 'docker-builder'
+					label 'docker'
 					image 'node:8-alpine'
 					args '-p 3000:3000'
 				} 
